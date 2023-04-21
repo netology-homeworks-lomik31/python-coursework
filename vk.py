@@ -16,4 +16,4 @@ class VK:
             "count": count
         }
         resp = requests.get("https://api.vk.com/method/photos.get", headers=headers, params=params).json()
-        if (resp.get("error") or not resp.get("response")): return {"success": False}
+        if (resp.get("error") or not resp.get("response") or not resp["response"].get("items")): return {"success": False}
