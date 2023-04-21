@@ -17,3 +17,17 @@ class VK:
         }
         resp = requests.get("https://api.vk.com/method/photos.get", headers=headers, params=params).json()
         if (resp.get("error") or not resp.get("response") or not resp["response"].get("items")): return {"success": False}
+
+        res = []
+        def getLink(links: list):
+            lettersSize = ["w", "z", "y", "x", "m", "s"]
+            link = []
+            i = 0
+            while (len(link) < 1):
+                link = list(filter(lambda j: j["type"] == lettersSize[i], links))
+                i += 1
+            return link[0]["url"]
+
+        for i in resp["response"]["items"]:
+            res.append({"date": i["date"], "link": getLink(i["sizes"]), "likes": i["likes"]["count"]})
+        return {"success": True, "data": res}
