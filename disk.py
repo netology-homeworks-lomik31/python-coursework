@@ -10,6 +10,7 @@ class Disk:
     def upload(self, fileLink, fileName):
         pass
     def createFolder(self, folderName):
+        self.folderName = folderName
         args = {
             "path": folderName
         }
