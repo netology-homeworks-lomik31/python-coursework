@@ -11,11 +11,12 @@ class Disk:
         pass
     def createFolder(self, folderName):
         self.folderName = folderName
-        args = {
-            "path": folderName
-        }
+        args = {"path": folderName}
         res = requests.put("https://cloud-api.yandex.net/v1/disk/resources", params=args, headers=self.headers)
         if (res.status_code != 201):
             print(res.json())
             from time import localtime, strftime, time
-            self.createFolder(strftime('%Y-%m-%d-%H\:%M\:%S', localtime(time())) + "-" + folderName)
+            args = {"path": strftime('%Y-%m-%d-%H\:%M\:%S', localtime(time())) + "-" + folderName}
+            res = requests.put("https://cloud-api.yandex.net/v1/disk/resources", params=args, headers=self.headers)
+            if (res.status_code != 201):
+                raise Exception(res.json())
