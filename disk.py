@@ -7,8 +7,17 @@ class Disk:
             "Accept": "application/json",
             "Authorization": f"OAuth {self.token}"
         }
-    def upload(self, fileLink, fileName):
-        pass
+    def upload(self, fileUrl, fileName):
+        args = {"path": f"{self.folderName}/{fileName}"}
+        res = requests.get("https://cloud-api.yandex.net/v1/disk/resources/upload", params=args, headers=self.headers)
+        resj = res.json()
+        link = resj.get("href")
+        if (res.status_code != 200 or not link):
+            return
+        args = {"fromFile": fileUrl}
+        res = requests.put(link, params=args)
+        if (res.status_code != 201):
+            return
     def createFolder(self, folderName):
         self.folderName = folderName
         args = {"path": folderName}
