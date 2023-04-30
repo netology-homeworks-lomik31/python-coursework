@@ -21,7 +21,7 @@ class Program:
         res = VK(key).getPhotos(sys.argv[1], *args)
         if (not res.get("success")): return print("Произошла ошибка при выполнении запроса VK")
         disk = Disk(sys.argv[2])
-        disk.createFolder(f"vk-photos-{sys.argv[1]}-{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))}")
+        disk.createFolder(f"vk-photos-{sys.argv[1]}")
         d = Program.createFilesDict(res.get("data"))
         for i in d:
             disk.upload(d[i], i)
