@@ -1,7 +1,14 @@
 from vk import VK
 import sys
+import time
 
 class Program:
+    def createFilesDict(files: list):
+        res = {}
+        for i in files:
+            res[f"{i['likes']} {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(i['date']))}" if i["likes"] in res else i["likes"]] = i["link"]
+        return res
+    
     def main():
         with open("./key.txt", "r") as f:
             key = f.read()
