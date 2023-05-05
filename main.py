@@ -19,17 +19,29 @@ class Program:
         parser.add_argument("-a", "--album", metavar="albumID", type=str, nargs=1, required=False, default="profile", help="ID альбома, из которого будет производиться загрузка фото (default: profile)")
         args = parser.parse_args()
 
-        with open("./key.txt", "r") as f:
-            key = f.read()
-        if (len(sys.argv) < 3): return print("Параметры переданы неверно либо не переданы")
-        args = []
-        if (len(sys.argv) > 3):
-            try: args.append(int(sys.argv[3]))
-            except: return print("Параметры переданы неверно либо не переданы")
-        res = VK(key).getPhotos(sys.argv[1], *args)
+        try:
+            with open(args.VKT, "r") as f:
+                vkKey = f.read()
+        except:
+            print(f"Файл {args.VKT} не найден")
+            return
+        try:
+            with open(args.YADT, "r") as f:
+                yaKey = f.read()
+        except:
+            print(f"Файл {args.YADT} не найден")
+            return
+        if (args.google):
+            try:
+                with open(args.google, "r") as f:
+                    googleKey = f.read()
+            except:
+                print(f"Файл {args.google} не найден")
+                return
+        res = VK(vkKey).getPhotos(args.VKID, args.count)
         if (not res.get("success")): return print("Произошла ошибка при выполнении запроса VK")
-        disk = Disk(sys.argv[2])
-        disk.createFolder(f"vk-photos-{sys.argv[1]}")
+        disk = Disk(yaKey)
+        disk.createFolder(f"vk-photos-{args.VKID}")
         d = Program.createFilesDict(res.get("data"))
         for i in d:
             disk.upload(d[i], i)
