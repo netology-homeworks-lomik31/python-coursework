@@ -4,14 +4,14 @@ import json as JSON
 class VK:
     def __init__(self, TOKEN) -> None:
         self.token = TOKEN
-    def getPhotos(self, userId: int, count: int = 5):
+    def getPhotos(self, userId: int, count: int = 5, album: str = "profile"):
         print("Получаю список фотографий пользователя: ", end="")
         headers = {
             "Authorization": f"Bearer {self.token}"
         }
         params = {
             "owner_id": userId,
-            "album_id": "profile",
+            "album_id": album,
             "extended": 1,
             "v": "5.131",
             "rev": 0,
