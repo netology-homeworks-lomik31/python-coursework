@@ -6,7 +6,7 @@ class Program:
     def createFilesDict(files: list):
         res = {}
         for i in files:
-            res[f"{i['likes']} {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(i['date']))}" if i["likes"] in res else i["likes"]] = i["link"]
+            res[f"{i['name']} {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(i['date']))}" if i["name"] in res else i["name"]] = i["link"]
         return res
     
     def main():

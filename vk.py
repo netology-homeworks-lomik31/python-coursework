@@ -1,4 +1,5 @@
 import requests
+import json as JSON
 
 class VK:
     def __init__(self, TOKEN) -> None:
@@ -29,10 +30,17 @@ class VK:
             while (len(link) < 1):
                 link = list(filter(lambda j: j["type"] == lettersSize[i], links))
                 i += 1
-            return link[0]["url"]
+            return [lettersSize[i], link[0]["url"]]
 
         print("Получаю ссылки на фото пользователя: ", end="")
+        a = []
         for i in resp["response"]["items"]:
-            res.append({"date": i["date"], "link": getLink(i["sizes"]), "likes": i["likes"]["count"]})
+            link = getLink(i["sizes"])
+            name = f"{i['likes']['count']}.{requests.get(link[1]).headers['content-type'][6:]}"
+            res.append({"date": i["date"], "link": link[1], "name": name})
+            a.append({"file_name": name, "size": link[0]})
+        with open("./result.json") as f:
+            f.write(JSON.dumps(a))
+
         print("Успешно.")
         return {"success": True, "data": res}

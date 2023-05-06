@@ -9,8 +9,7 @@ class Disk:
         }
     def upload(self, fileUrl, fileName):
         print(f"Загружаю файл {fileUrl} с названием {fileName}: ", end="")
-        res = requests.get(fileUrl).headers["content-type"][6:]
-        args = {"path": f"{self.folderName}/{fileName}.{res}", "url": fileUrl}
+        args = {"path": f"{self.folderName}/{fileName}", "url": fileUrl}
         res = requests.post("https://cloud-api.yandex.net/v1/disk/resources/upload", params=args, headers=self.headers)
         if (res.status_code != 202 or not res.json().get("href")):
             print(f"Ошибка. Подробности:\n{res.json()}.")
