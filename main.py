@@ -1,6 +1,6 @@
 from vk import VK
 from disk import Disk
-import sys, time, argparse
+import time, argparse
 
 class Program:
     def createFilesDict(files: list):
