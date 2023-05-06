@@ -16,7 +16,7 @@ class Program:
         parser.add_argument("YADT", metavar="YaDiskTokenFile", type=str, nargs=1, help="Путь к файлу с токеном ядиска")
         parser.add_argument("-c", "--count", metavar="count", type=int, nargs=1, required=False, default=[5], help="Количество фото для сохранения (default: 5)")
         parser.add_argument("--google", metavar="googleTokenFile", type=str, nargs=1, required=False, help="Путь к файлу с токеном google drive")
-        parser.add_argument("-a", "--album", metavar="albumID", type=str, nargs=1, required=False, default=["profile"], help="ID альбома, из которого будет производиться загрузка фото (default: profile)")
+        parser.add_argument("-a", "--album", metavar="albumID", type=str, nargs=1, required=False, default=["profile"], help="ID альбома, из которого будет производиться загрузка фото (доступные варианты: 'wall', 'profile', 'saved', albumId; default: profile)")
         args = parser.parse_args()
 
         try:
