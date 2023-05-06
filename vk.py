@@ -19,7 +19,7 @@ class VK:
         }
         resp = requests.get("https://api.vk.com/method/photos.get", headers=headers, params=params).json()
         if (resp.get("error") or not resp.get("response") or not resp["response"].get("items")):
-            print("Ошибка.")
+            print(f"Ошибка. Подробности:\n{resp}")
             return {"success": False}
         print("Успешно.")
         res = []
