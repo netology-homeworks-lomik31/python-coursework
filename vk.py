@@ -26,10 +26,10 @@ class VK:
         def getLink(links: list):
             lettersSize = ["w", "z", "y", "x", "m", "s"]
             link = []
-            i = 0
+            i = -1
             while (len(link) < 1):
-                link = list(filter(lambda j: j["type"] == lettersSize[i], links))
                 i += 1
+                link = list(filter(lambda j: j["type"] == lettersSize[i], links))
             return [lettersSize[i], link[0]["url"]]
 
         print("Получаю ссылки на фото пользователя: ", end="")
