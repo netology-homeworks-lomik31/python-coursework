@@ -39,7 +39,7 @@ class VK:
             name = f"{i['likes']['count']}.{requests.get(link[1]).headers['content-type'][6:]}"
             res.append({"date": i["date"], "link": link[1], "name": name})
             a.append({"file_name": name, "size": link[0]})
-        with open("./result.json") as f:
+        with open("./result.json", "w") as f:
             f.write(JSON.dumps(a))
 
         print("Успешно.")
