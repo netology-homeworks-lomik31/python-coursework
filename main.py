@@ -38,7 +38,7 @@ class Program:
             except:
                 print(f"Файл {args.google[0]} не найден")
                 return
-        res = VK(vkKey).getPhotos(args.VKID[0], args.count[0])
+        res = VK(vkKey).getPhotos(args.VKID[0], args.count[0], args.album[0])
         if (not res.get("success")): return print("Произошла ошибка при выполнении запроса VK")
         disk = Disk(yaKey)
         disk.createFolder(f"vk-photos-{args.VKID[0]}")
