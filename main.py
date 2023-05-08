@@ -41,7 +41,7 @@ class Program:
         res = VK(vkKey).getPhotos(args.VKID[0], args.count[0], args.album[0])
         if (not res.get("success")): return print("Произошла ошибка при выполнении запроса VK")
         disk = Disk(yaKey)
-        disk.createFolder(f"vk-photos-{args.VKID[0]}")
+        disk.createFolder(f"vk-photos-{args.VKID[0]}-{args.album[0]}")
         d = Program.createFilesDict(res.get("data"))
         for i in d:
             disk.upload(d[i], i)
