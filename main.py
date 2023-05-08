@@ -31,13 +31,13 @@ class Program:
         except:
             print(f"Файл {args.YADT[0]} не найден")
             return
-        if (args.google):
-            try:
-                with open(args.google[0], "r") as f:
-                    googleKey = f.read()
-            except:
-                print(f"Файл {args.google[0]} не найден")
-                return
+        # if (args.google):
+        #     try:
+        #         with open(args.google[0], "r") as f:
+        #             googleKey = f.read()
+        #     except:
+        #         print(f"Файл {args.google[0]} не найден")
+        #         return
         res = VK(vkKey).getPhotos(args.VKID[0], args.count[0], args.album[0])
         if (not res.get("success")): return print("Произошла ошибка при выполнении запроса VK")
         disk = Disk(yaKey)
