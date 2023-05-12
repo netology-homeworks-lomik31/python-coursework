@@ -17,6 +17,7 @@ class Program:
         parser.add_argument("-c", "--count", metavar="count", type=int, nargs=1, required=False, default=[5], help="Количество фото для сохранения (default: 5)")
         # parser.add_argument("--google", metavar="googleTokenFile", type=str, nargs=1, required=False, help="Путь к файлу с токеном google drive")
         parser.add_argument("-a", "--album", metavar="albumID", type=str, nargs=1, required=False, default=["profile"], help="ID альбома, из которого будет производиться загрузка фото (доступные варианты: 'wall', 'profile', 'saved', albumId; default: profile)")
+        parser.add_argument("-f", "--folder", metavar="folderName", type=str, nargs=1, required=False, default=[""], help="Название папки, в которую сохранятся требуемые фото (в облаке)")
         args = parser.parse_args()
 
         yaKey = input("Введите токен Яндекс.Диска: ")
@@ -40,7 +41,7 @@ class Program:
         with open("./result.json", "w") as f:
             f.write(JSON.dumps(res["result"]))
         disk = Disk(yaKey)
-        disk.createFolder(f"vk-photos-{vkId}-{args.album[0]}")
+        disk.createFolder(f"vk-photos-{vkId}-{args.album[0]}" if args.folder[0] == "" else args.folder[0])
         d = Program.createFilesDict(res.get("data"))
         for i in d:
             disk.upload(d[i], i)
