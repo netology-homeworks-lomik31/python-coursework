@@ -1,6 +1,6 @@
 from vk import VK
 from disk import Disk
-import time, argparse
+import time, argparse, json as JSON
 
 class Program:
     def createFilesDict(files: list):
@@ -37,6 +37,8 @@ class Program:
         #         return
         res = VK(vkKey).getPhotos(vkId, args.count[0], args.album[0])
         if (not res.get("success")): return print("Произошла ошибка при выполнении запроса VK")
+        with open("./result.json", "w") as f:
+            f.write(JSON.dumps(res["result"]))
         disk = Disk(yaKey)
         disk.createFolder(f"vk-photos-{vkId}-{args.album[0]}")
         d = Program.createFilesDict(res.get("data"))

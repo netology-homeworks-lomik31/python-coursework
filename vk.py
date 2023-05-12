@@ -1,5 +1,4 @@
 import requests
-import json as JSON
 
 class VK:
     def __init__(self, TOKEN) -> None:
@@ -39,8 +38,6 @@ class VK:
             name = f"{i['likes']['count']}.{requests.get(link[1]).headers['content-type'][6:]}"
             res.append({"date": i["date"], "link": link[1], "name": name})
             a.append({"file_name": name, "size": link[0]})
-        with open("./result.json", "w") as f:
-            f.write(JSON.dumps(a))
 
         print("Успешно.")
-        return {"success": True, "data": res}
+        return {"success": True, "data": res, "result": a}
