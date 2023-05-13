@@ -26,6 +26,7 @@ class Program:
 
         yaKey = input("Введите токен Яндекс.Диска: ")
         vkId = input("Введите id пользователя VK для бэкапа: ")
+        if (not vkId or not yaKey): return
 
         try:
             with open(args.VKT[0], "r") as f:
