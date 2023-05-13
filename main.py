@@ -9,6 +9,10 @@ class Program:
             res[f"{i['name']} {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(i['date']))}" if i["name"] in res else i["name"]] = i["link"]
         return res
     
+    def writeResults(results):
+        with open("./result.json", "w") as f:
+            f.write(JSON.dumps(results))
+
     def main():
         parser = argparse.ArgumentParser()
         parser.add_argument("VKT", metavar="VKTokenFile", type=str, nargs=1, help="Путь к файлу с токеном VK")
@@ -38,8 +42,7 @@ class Program:
         #         return
         res = VK(vkKey).getPhotos(vkId, args.count[0], args.album[0])
         if (not res.get("success")): return print("Произошла ошибка при выполнении запроса VK")
-        with open("./result.json", "w") as f:
-            f.write(JSON.dumps(res["result"]))
+        Program.writeResults(res["result"])
         disk = Disk(yaKey)
         disk.createFolder(f"vk-photos-{vkId}-{args.album[0]}" if args.folder[0] == "" else args.folder[0])
         d = Program.createFilesDict(res.get("data"))
