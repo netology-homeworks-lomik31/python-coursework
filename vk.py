@@ -16,8 +16,9 @@ class VK:
             "rev": 0,
             "count": count
         }
-        resp = requests.get("https://api.vk.com/method/photos.get", headers=headers, params=params).json()
-        if (resp.get("error") or not resp.get("response") or not resp["response"].get("items")):
+        r = requests.get("https://api.vk.com/method/photos.get", headers=headers, params=params)
+        resp = r.json()
+        if (resp.get("error") or not resp.get("response") or not resp["response"].get("items") or r.status_code != 200):
             print(f"Ошибка. Подробности:\n{resp}")
             return {"success": False}
         print("Успешно.")
